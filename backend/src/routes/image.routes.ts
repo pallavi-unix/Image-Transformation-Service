@@ -1,7 +1,9 @@
 import { Router } from "express";
 import multer from "multer";
 import { processImage } from "../utils/processImage";
-import { v4 as uuidv4 } from "uuid"; // <-- import UUID
+import { v4 as uuidv4 } from "uuid";
+import fs from "fs";
+import path from "path";
 
 const router = Router();
 const upload = multer({ dest: "uploads/" });
@@ -29,6 +31,32 @@ router.post("/process", upload.single("image"), async (req, res) => {
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: error.message || "Image processing failed" });
+  }
+});
+
+router.delete("/delete", async (req, res) => {
+  try {
+    const { original, processed } = req.body;
+
+    if (!original || !processed) {
+      return res.status(400).json({ error: "Missing image paths" });
+    }
+
+    const originalPath = path.join(process.cwd(), original);
+    const processedPath = path.join(process.cwd(), processed);
+
+    if (fs.existsSync(originalPath)) {
+      fs.unlinkSync(originalPath);
+    }
+
+    if (fs.existsSync(processedPath)) {
+      fs.unlinkSync(processedPath);
+    }
+
+    res.json({ message: "Images deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete images" });
   }
 });
 
