@@ -10,6 +10,13 @@ A full-stack web application that allows users to upload an image, automatically
 - **Hosting:** Cloud image hosting service
 - **Version Control:** Git & GitHub
 
+### Features
+- Upload an image
+- Remove image background using a third-party API
+- Horizontally flip the processed image (upcoming)
+- Generate a unique URL for the processed image
+- Delete uploaded and processed images
+
 ## How to Run Locally
 
 ### Prerequisites
@@ -18,7 +25,11 @@ A full-stack web application that allows users to upload an image, automatically
 - Git
 
 ### Backend Setup
-```bash
-cd backend
-npm install
-npm run dev
+
+### Upload and Process Image
+1. Start backend: `npm run dev`
+2. Send a POST request to `/api/images/upload` with key `image` (File)
+3. Response contains:
+   - `original`: path to original image
+   - `processed`: path to background-removed image
+4. Access images via: `http://localhost:5000/uploads/<filename>`
