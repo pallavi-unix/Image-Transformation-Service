@@ -49,7 +49,8 @@ export async function processImage(inputPath: string) {
 
   await sharp(imageBuffer)
     .flop() // horizontal flip
-    .png()
+    .ensureAlpha()
+    .png({ force: true })
     .toFile(processedOutput);
 
   return {
