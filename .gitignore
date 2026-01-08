@@ -12,4 +12,4 @@ backend/dist/
 *.env
 
 # Ignore uploaded files
-uploads/
+backend/uploads/
