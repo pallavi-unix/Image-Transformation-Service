@@ -9,3 +9,6 @@ backend/dist/
 
 # Env files
 *.env
+
+# Ignore uploaded files
+uploads/
