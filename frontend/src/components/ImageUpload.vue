@@ -23,6 +23,15 @@
         Copy Share URL
       </button>
 
+      <button
+        v-if="originalUrl && processedUrl"
+        @click="deleteImages"
+        class="delete-btn"
+      >
+        Delete Images
+      </button>
+
+
       <p v-if="copied" class="copied-text">✅ Link copied!</p>
     </div>
 
@@ -77,6 +86,24 @@ export default defineComponent({
       }
     };
 
+    const deleteImages = async () => {
+        try {
+          await axios.delete("http://localhost:5000/api/image/delete", {
+            data: {
+              original: originalUrl.value?.replace("http://localhost:5000", ""),
+              processed: processedUrl.value?.replace("http://localhost:5000", ""),
+            },
+          });
+
+          originalUrl.value = null;
+          processedUrl.value = null;
+          errorMessage.value = null;
+        } catch (err) {
+          console.error(err);
+          errorMessage.value = "Failed to delete images";
+        }
+      };
+      
     const copyShareUrl = async () => {
       if (!shareUrl.value) return;
 
@@ -97,6 +124,7 @@ export default defineComponent({
       onFileChange,
       uploadImage,
       copyShareUrl,
+      deleteImages,
     };
   },
 });
@@ -162,6 +190,18 @@ button {
 button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
 }
 
 .error {
