@@ -1,3 +1,4 @@
+# Ignore below files and directories
 # Node modules
 node_modules/
 
