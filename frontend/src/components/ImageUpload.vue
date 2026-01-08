@@ -19,6 +19,11 @@
       <div class="checkerboard">
         <img :src="processedUrl" alt="Processed" />
       </div>
+      <button class="copy-btn" @click="copyShareUrl">
+        Copy Share URL
+      </button>
+
+      <p v-if="copied" class="copied-text">✅ Link copied!</p>
     </div>
 
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
@@ -36,6 +41,8 @@ export default defineComponent({
     const selectedFile = ref<File | null>(null);
     const originalUrl = ref<string | null>(null);
     const processedUrl = ref<string | null>(null);
+    const shareUrl = ref<string | null>(null);
+    const copied = ref(false);
     const errorMessage = ref<string | null>(null);
 
     const onFileChange = (event: Event) => {
@@ -59,6 +66,9 @@ export default defineComponent({
 
         originalUrl.value = `http://localhost:5000${response.data.original}`;
         processedUrl.value = `http://localhost:5000${response.data.processed}`;
+        shareUrl.value = processedUrl.value;
+
+        copied.value = false;
         errorMessage.value = null;
       } catch (err: any) {
         console.error(err);
@@ -67,13 +77,26 @@ export default defineComponent({
       }
     };
 
+    const copyShareUrl = async () => {
+      if (!shareUrl.value) return;
+
+      await navigator.clipboard.writeText(shareUrl.value);
+      copied.value = true;
+
+      setTimeout(() => {
+        copied.value = false;
+      }, 2000);
+    };
+
     return {
       selectedFile,
       originalUrl,
       processedUrl,
       errorMessage,
+      copied,
       onFileChange,
       uploadImage,
+      copyShareUrl,
     };
   },
 });
@@ -85,6 +108,17 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+}
+
+.copy-btn {
+  margin-top: 10px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.copied-text {
+  color: green;
+  margin-top: 5px;
 }
 
 .images {
