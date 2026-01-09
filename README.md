@@ -23,24 +23,22 @@ A full-stack web application that allows users to upload an image, automatically
 
 ## Project Structure
 Image-Transformation-Service/
-│
-├─ backend/ # TypeScript
-│ ├─ src/
-│ │ ├─ routes/ # API routes
-│ │ └─ utils/ # Image processing logic
-│ ├─ uploads/ # Uploaded & processed images .gitignore
-│ ├─ package.json
-│ └─ tsconfig.json
-│
-├─ frontend/ # Vue 3 + Vite frontend
-│ ├─ src/
-│ │ ├─ components/
-│ │ │ └─ ImageUpload.vue
-│ │ └─ App.vue
-│ ├─ package.json
-│ └─ vite.config.ts
-│
-└─ README.md
+- backend
+   - src
+      - routes
+         - image.routes.ts
+      - utils
+         - flipImage.ts
+         - processImage.ts
+         - removeBackground.ts
+   - app.ts
+   - server.ts
+- frontend
+   - src
+      - components
+         - ImageUpload.vue
+   - index.html
+- README.md
 
 ## How to Run Locally
 
@@ -72,6 +70,10 @@ cd frontend
 npm install
 npm run dev
 ```
-### Deployed both Backend and Frontend on the vercle, they are live now
+
+### Deployed both Frontend and Backend are live now
+Frontend: https://image-transformation-service-frontend.onrender.com
+Backend: https://image-transformation-service-backend.onrender.com
+
 
 # ENJOY!
