@@ -57,22 +57,23 @@ export default defineComponent({
     const onFileChange = (event: Event) => {
       const input = event.target as HTMLInputElement;
 
-      if (!input.files || input.files.length === 0) {
+      if (input.files && input.files.length > 0) {
+        selectedFile.value = input.files[0]!;
+      } else {
         selectedFile.value = null;
-        return;
       }
-
-      selectedFile.value = input.files[0];  
     };
 
     const uploadImage = async () => {
-      if (!selectedFile.value) {
+      const file = selectedFile.value;
+
+      if (!file) {
         errorMessage.value = "Please select an image first";
         return;
       }
 
       const formData = new FormData();
-      formData.append("image", selectedFile.value);
+      formData.append("image", file);
 
       try {
         const response = await axios.post(
