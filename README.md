@@ -1,24 +1,12 @@
 # Image-Transformation-Service
 
 ## Project Overview
-A full-stack web application that allows users to upload an image, automatically remove its background, horizontally flip it, and access the processed image via a unique hosted URL.
-
-## Tech Stack
-- **Frontend:** Vue 3, Vite, TypeScript
-- **Backend:** Node.js, Express, TypeScript
-- **Image Processing:** Third-party background removal API
-- **Hosting:** Cloud image hosting service
-- **Version Control:** Git & GitHub
-
-# Image-Transformation-Service
-
-## Project Overview
 A full-stack web application that allows users to upload an image, automatically remove its background, horizontally flip it, and access the processed image via a unique hosted URL. Users can also copy a shareable link, see confetti animation on successful processing, and auto-scroll to view processed images. This project demonstrates integration of AI-powered image processing with a fun, interactive UI.
 
 ## Tech Stack
 - **Frontend:** Vue 3, Vite, TypeScript
-- **Backend:** Node.js, Express, TypeScript
-- **Image Processing:** Third-party background removal API (e.g., remove.bg or NoBG.link)
+- **Backend:** TypeScript
+- **Image Processing:** Third-party background removal API (e.g., remove.bg)
 - **Hosting:** Vercel (Frontend), Vercel/Render (Backend)
 - **Version Control:** Git & GitHub
 
@@ -36,11 +24,11 @@ A full-stack web application that allows users to upload an image, automatically
 ## Project Structure
 Image-Transformation-Service/
 │
-├─ backend/ # Node.js + Express backend
+├─ backend/ # TypeScript
 │ ├─ src/
 │ │ ├─ routes/ # API routes
 │ │ └─ utils/ # Image processing logic
-│ ├─ uploads/ # Uploaded & processed images
+│ ├─ uploads/ # Uploaded & processed images .gitignore
 │ ├─ package.json
 │ └─ tsconfig.json
 │
