@@ -72,8 +72,8 @@ npm run dev
 ```
 
 ### Deployed both Frontend and Backend are live now
-Frontend: https://image-transformation-service-frontend.onrender.com
-Backend: https://image-transformation-service-backend.onrender.com
+#### Frontend: https://image-transformation-service-frontend.onrender.com
+#### Backend: https://image-transformation-service-backend.onrender.com
 
 
 # ENJOY!
