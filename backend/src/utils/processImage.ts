@@ -4,13 +4,17 @@ import sharp from "sharp";
 import axios from "axios";
 import FormData from "form-data";
 
-export async function processImage(inputPath: string) {
+export async function processImage(inputPath: string | Buffer) {
   if (!process.env.BACKGROUND_REMOVAL_API_KEY) {
     throw new Error("Background removal API key missing");
   }
 
   const uploadsDir = path.join(process.cwd(), "uploads");
 
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+  }
+  
   const originalOutput = path.join(
     uploadsDir,
     `original-${Date.now()}.png`

@@ -6,7 +6,10 @@ import fs from "fs";
 import path from "path";
 
 const router = Router();
-const upload = multer({ dest: "uploads/" });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+//const upload = multer({ dest: "uploads/" });
 
 // Temporary in-memory map: uuid -> processed file path
 const processedImageMap: Record<string, string> = {};
@@ -17,7 +20,9 @@ router.post("/process", upload.single("image"), async (req, res) => {
       return res.status(400).json({ error: "No image uploaded" });
     }
 
-    const result = await processImage(req.file.path);
+    const result = await processImage(req.file?.buffer);
+    
+    //const result = await processImage(req.file.buffer);
 
     // Generate a unique UUID for the processed image
     const uniqueId = uuidv4();
