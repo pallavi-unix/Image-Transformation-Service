@@ -69,12 +69,14 @@ export default defineComponent({
 
       try {
         const response = await axios.post(
-          "https://image-transformation-service.onrender.com/api/image/process",
+          "https://image-transformation-service-backend.onrender.com/api/image/process",
           formData
         );
 
-        originalUrl.value = `http://localhost:5000${response.data.original}`;
-        processedUrl.value = `http://localhost:5000${response.data.processed}`;
+        const BACKEND_URL = "https://image-transformation-service-backend.onrender.com";
+
+        originalUrl.value = `${BACKEND_URL}${response.data.original}`;
+        processedUrl.value = `${BACKEND_URL}${response.data.processed}`;
         shareUrl.value = processedUrl.value;
 
         copied.value = false;
@@ -88,10 +90,11 @@ export default defineComponent({
 
     const deleteImages = async () => {
         try {
-          await axios.delete("http://localhost:5000/api/image/delete", {
+          const BACKEND_URL = "https://image-transformation-service-backend.onrender.com";
+          await axios.delete(`${BACKEND_URL}/api/image/delete`, {
             data: {
-              original: originalUrl.value?.replace("http://localhost:5000", ""),
-              processed: processedUrl.value?.replace("http://localhost:5000", ""),
+              original: originalUrl.value?.replace(BACKEND_URL, ""),
+              processed: processedUrl.value?.replace(BACKEND_URL, ""),
             },
           });
 
