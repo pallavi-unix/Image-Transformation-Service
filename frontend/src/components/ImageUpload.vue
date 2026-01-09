@@ -69,7 +69,7 @@ export default defineComponent({
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/image/process",
+          "https://image-transformation-service.onrender.com/api/image/process",
           formData
         );
 
@@ -103,7 +103,7 @@ export default defineComponent({
           errorMessage.value = "Failed to delete images";
         }
       };
-      
+
     const copyShareUrl = async () => {
       if (!shareUrl.value) return;
 
