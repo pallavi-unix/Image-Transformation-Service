@@ -56,13 +56,20 @@ export default defineComponent({
 
     const onFileChange = (event: Event) => {
       const input = event.target as HTMLInputElement;
-      if (input.files && input.files.length > 0) {
-        selectedFile.value = input.files[0];
+
+      if (!input.files || input.files.length === 0) {
+        selectedFile.value = null;
+        return;
       }
+
+      selectedFile.value = input.files[0];  
     };
 
     const uploadImage = async () => {
-      if (!selectedFile.value) return;
+      if (!selectedFile.value) {
+        errorMessage.value = "Please select an image first";
+        return;
+      }
 
       const formData = new FormData();
       formData.append("image", selectedFile.value);
